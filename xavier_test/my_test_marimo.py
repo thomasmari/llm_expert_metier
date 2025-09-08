@@ -60,7 +60,7 @@ def _():
     print(documents)
     print(len(documents))
     print(documents[0])
-    return
+    return (Document,)
 
 
 @app.cell(hide_code=True)
@@ -230,10 +230,41 @@ def _(vector_store):
 @app.cell
 def _(embeddings, results, vector_store):
     # Return documents based on similarity to an embedded query:
-    my_embedding = embeddings.embed_query("How were Nike's margins impacted in 2023?")
+    my_embedding = embeddings.embed_query("Quelle est la peine de prison maximale pour meurtre ?")
 
     my_results = vector_store.similarity_search_by_vector(my_embedding)
     print(results[0])
+    return
+
+
+@app.cell
+def _(Document, vector_store):
+    # On peut aussi faire des traitement par batch
+
+    from typing import List
+
+    from langchain_core.runnables import chain
+
+
+    @chain
+    def retriever(query: str) -> List[Document]:
+        return vector_store.similarity_search(query, k=1)
+
+
+    resultats = retriever.batch(
+        [
+            "Quelle est la peine de prison maximale pour meurtre ?",
+            "C'est quoi la loi ?",
+        ],
+    )
+
+    print(resultats[0])
+    print(resultats[1])
+    return
+
+
+@app.cell
+def _():
     return
 
 
