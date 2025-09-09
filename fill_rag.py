@@ -64,20 +64,28 @@ vector_store = Chroma(
 if CHUNK_LIMIT_FOR_TEST:
     liste_articles = liste_articles[0:30]
 
-# Embedding :
-for i in tqdm(range(len(liste_articles))):
-    chunk = liste_articles[i]
-    # Indexation de chunks dans le RAG
-    ids = vector_store.add_documents(documents=[chunk])
-    # On fait des pauses pour ne pas cramer notre compteur API
-    if (i+1)%(RPM_LIMIT-5) == 0:
-        print(f"\nPause après {i+1} documents...")
-        time.sleep(NAP_DURATION)
+
+try:
+    # Embedding :
+    for i in tqdm(range(len(liste_articles))):
+        chunk = liste_articles[i]
+        # Indexation de chunks dans le RAG
+        ids = vector_store.add_documents(documents=[chunk])
+        # On fait des pauses pour ne pas cramer notre compteur API
+        if (i+1)%(RPM_LIMIT-5) == 0:
+            print(f"\nPause après {i+1} documents...")
+            time.sleep(NAP_DURATION)
+except Exception as e:
+    print(e)
+    print(f"Probablement un problème de quotat ! On en est au chunk numéro {i} !")
+else:
+  print("Aucun problème lors de l'embedding !") 
+
 
 # Test de l'embedding avec un requêtes simple :
 print("4 - 📤  Test de requête", flush=True)
 requete = "A qui est applicable le code pénal ?"
-print('    On envoie la requête suivante : "{requete}"')
+print(f'    On envoie la requête suivante : "{requete}"')
 results = vector_store.similarity_search(requete)
 print(f"    --> La requête dans le RAG a renvoyé {len(results):d} chunks.")
 print(f"    Les voici :")
