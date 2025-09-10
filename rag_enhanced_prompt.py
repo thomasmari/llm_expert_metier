@@ -37,7 +37,7 @@ if is_test:
 similarity_result = vector_store.similarity_search(user_prompt)
 if is_test:
         print(f"similarity search sucess, ... Computing prompt")
-system_prompt_rag = f"<system prompt>:Tu est un juriste et tu réponds à des questions juridique. Tu but est de répondre au <user prompt>, et tu peux utiliser les données <rag data> issues d'une recherche de similarité dans une bases de données vecteurisé du code pénal."+\
+system_prompt_rag = f"<system prompt>:Tu est un juriste et tu réponds à des questions juridique. Ton but est de répondre au <user prompt>, et tu peux utiliser les données <rag data> issues d'une recherche de similarité dans une bases de données vecteurisé du code pénal."+\
                     f"<rag data>:{str(similarity_result)}\n"+\
                     f"<user prompt>:{user_prompt}"
 print(f"promt:{system_prompt_rag}")
