@@ -3,6 +3,7 @@ import os
 import getpass
 import json
 from dotenv import load_dotenv
+from langsmith import Client
 
 def setup_env_variables(auto:bool=False, verbose:bool=False):
     """Set up environment variable if not already set !"""
@@ -40,7 +41,19 @@ def load_QA(fichier_json:str) -> list[dict]:
 
     return qa_list
 
+def test_langsmithAPI():
+    setup_env_variables(auto=True, verbose=True)
+    try:
+        client = Client()
+        # Test simple pour vérifier la connexion
+        projects = client.list_projects()
+        print("Connexion réussie!")
+        print(f"Projets disponibles: {[p.name for p in projects]}")
+    except Exception as e:
+        print(f"Erreur de connexion: {e}")
+
 if __name__ == "__main__":
+
     # Test loading QA
     qa_list = load_QA("benchmark_data/QA.json")
     for d in qa_list:

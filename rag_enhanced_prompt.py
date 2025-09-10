@@ -8,7 +8,11 @@ import getpass
 import os
 from langchain_google_genai import GoogleGenerativeAIEmbeddings #embedding prompt
 from langchain_google_genai import GoogleGenerativeAI # LLM
+from mytools import setup_env_variables
 
+
+# Set-up environment 
+setup_env_variables(auto=True, verbose=True)
 
 #setting 
 is_test = True
@@ -21,8 +25,7 @@ except Exception:
     quit()
 if is_test:
     print(f"user_prompt:{user_prompt}")
-if not os.environ.get("GOOGLE_API_KEY"):
-    os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter API key for Google Gemini: ")
+
 embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
 
