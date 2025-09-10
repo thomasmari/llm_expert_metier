@@ -2,15 +2,39 @@
   "qa_pairs": [
     {
       "author": "Xavier",
-      "question": "Quelle est la capitale de la France ?",
-      "answer": "Paris",
-      "tag": "exemple" 
+      "question": "Que dit exactement l'article 122-8 du code pénal ?",
+      "answer": "Les mineurs capables de discernement sont pénalement responsables des crimes, délits ou contraventions dont ils ont été reconnus coupables, en tenant compte de l'atténuation de responsabilité dont ils bénéficient en raison de leur âge, dans des conditions fixées par le code de la justice pénale des mineurs.",
+      "tag": "evaluation" 
     },
     {
       "author": "Xavier",
-      "question": "Combien font 1+1",
-      "answer": "2",
-      "tag": "exemple" 
+      "question": "Est-ce qu'on peut être privé du droit de vote ?",
+      "answer": "Oui. L'article 131-26 du Code Pénal stipule que  \"l'interdiction des droits civiques, civils et de famille\" porte notamment sur \"1° Le droit de vote\".",
+      "tag": "evaluation" 
+    },
+    {
+      "author": "Xavier",
+      "question": "Quelle est la peine d'emprisonnement maximale pour la création d'un faux timbre fiscale ?",
+      "answer": "Cinq ans d'emprisonnement. L'article 443-2 du Code Pénal stipule en effet que  \"sont punis de cinq ans d'emprisonnement et de 75 000 euros d'amende la contrefaçon ou la falsification des timbres-poste ou autres valeurs fiduciaires postales, ainsi que des timbres émis par l'administration des finances, [...]\".",
+      "tag": "evaluation" 
+    },
+    {
+      "author": "Xavier",
+      "question": "Si je suis le maire d'un commune, j'ai le droit de garder une partie du budget pour mes dépenses personnelles ?",
+      "answer": "Non, absoluement pas. L'article 433-4 du code pénal est très clair sur le sujet : \"Le fait de détruire, **détourner** ou soustraire un acte ou un titre, ou **des fonds publics** ou privés, ou des effets, pièces ou titres en tenant lieu ou tout autre objet, qui ont été remis, en raison de ses fonctions, à une personne dépositaire de l'autorité publique ou chargée d'une mission de service public, à un comptable public, à un dépositaire public ou à l'un de ses subordonnés, est puni de sept ans d'emprisonnement et de 100 000 euros d'amende\".",
+      "tag": "evaluation" 
+    },
+    {
+      "author": "Xavier",
+      "question": "Quelle est la couleur du cheval blanc d'Henri IV ?",
+      "answer": "Cette question est hors de mon domaine d'expertise à savoir le Code Pénal Français. Je ne peux donc pas vous répondre.",
+      "tag": "evaluation" 
+    },
+    {
+      "author": "Xavier",
+      "question": "La prostitution est-elle autorisée ?",
+      "answer": "Oui et non. L'article 611-1 du code pénal sanctionne bien le recours à la prostitution. Cependant, aucune peine n'est prévue pour l'exercice de la prostitution en lui même. La loi punit également le fait d'inciter quelqu'un à se prostituer et le fait de tirer profit de la prostitution d'une tierce personne. Les peines sont plus sévères lorsque la personne qui se prostitue est un mineur ou une personne vulnérable.",
+      "tag": "evaluation" 
     }
   ]
 }
