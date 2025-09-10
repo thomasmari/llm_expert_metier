@@ -1,0 +1,16 @@
+{
+  "qa_pairs": [
+    {
+      "author": "Xavier",
+      "question": "Quelle est la capitale de la France ?",
+      "answer": "Paris",
+      "tag": "exemple" 
+    },
+    {
+      "author": "Xavier",
+      "question": "Combien font 1+1",
+      "answer": "2",
+      "tag": "exemple" 
+    }
+  ]
+}
