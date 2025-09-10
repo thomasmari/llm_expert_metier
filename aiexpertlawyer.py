@@ -53,6 +53,16 @@ class AIExpertLawyer() :
     # --------------------------------------------------------------------------
     #                                                                   Méthodes
     # --------------------------------------------------------------------------
+
+    def __str__(self) -> str:
+        return (
+         "==========================================\n"   
+         "AIExpertLawyer with following parameters :\n" +
+        f"   - system_prompt :\n     ---------------\n     {self._system_prompt.strip().replace("\n","\n     ")}\n     ---------------\n" +
+        f"   - llm :\n     {str(self._llm).replace("\n","\n     ")}\n" + 
+        f"   - nb_chunks : {self._nb_chunks}\n" + 
+        "=========================================="   
+        )
     
     def ask(self, question:str) -> str:
         """Demande quelque chose à notre agent"""
@@ -77,13 +87,15 @@ if __name__=='__main__':
 
     # Création de l'agent
     expert = AIExpertLawyer(temperature=0.25, nb_chunk=3, top_p=0.5)
+    print("🔎  Info sur l'Agent utilisé :")
+    print(expert)
 
     # Question :
     question = "Quel est la peine de prison la plus longue envisageable ?"
-    print("Question :")
+    print("### Question :")
     print(f"> {question}", flush=True)
 
     # Réponse :
     reponse = expert.ask(question)
-    print("Réponse :")
-    print(f"> {reponse}")
+    print("###  Réponse :")
+    print(f"> {reponse.replace("\n", "\n> ")}")
