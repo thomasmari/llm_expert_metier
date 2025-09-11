@@ -1,1 +1,23 @@
+################################################################################
+          ####   #  #####  #   ####   #    #   ####   #####   ######
+         #    #  #    #    #  #    #  ##   #  #    #  #    #  #
+         #       #    #    #  #       # #  #  #    #  #    #  #####
+         #  ###  #    #    #  #  ###  #  # #  #    #  #####   #
+         #    #  #    #    #  #    #  #   ##  #    #  #   #   #
+          ####   #    #    #   ####   #    #   ####   #    #  ######
+################################################################################
+
+# On ne veut pas versionnée le fichier lock de UV (le pyproject.toml suffit)
 uv.lock
+
+# On ne veut pas versionner la base de donnée Chroma :
+chroma_langchain_db
+
+# On ne veut pas versionner le cache de python
+__pycache__
+
+# On ne veut pas versionner nos variables d'env perso (où il y a nos clé API !)
+.env
+
+# On ne vaut pas garder les logs écrits par les Agents
+logs
