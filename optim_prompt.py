@@ -57,7 +57,7 @@ for i in range(N):
     print("On va créer un nouvel expert avec le prompt système suivant :\n"+("-"*10)+f"\n{proposition_prompt}\n"+("-"*10)+"\n")
 
     # Création d'un nouvel expert :
-    expert = AIExpertLawyer(temperature=temperature_experts, nb_chunk=nb_chunk_experts, top_p=top_p_experts, logfile=log_expert)
+    expert = AIExpertLawyer(temperature=temperature_experts, nb_chunk=nb_chunk_experts, top_p=top_p_experts, logfile=log_expert, system_prompt=proposition_prompt)
 
     # Petite pause pour éviter certain problèmes de requêtes
     print("Mais d'abord une petite pause !")
