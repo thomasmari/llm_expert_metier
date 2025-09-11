@@ -8,7 +8,11 @@ import getpass
 import os
 from langchain_google_genai import GoogleGenerativeAIEmbeddings #embedding prompt
 from langchain_google_genai import GoogleGenerativeAI # LLM
+from mytools import setup_env_variables
 
+
+# Set-up environment 
+setup_env_variables(auto=True, verbose=True)
 
 #setting 
 is_test = True
@@ -21,8 +25,7 @@ except Exception:
     quit()
 if is_test:
     print(f"user_prompt:{user_prompt}")
-if not os.environ.get("GOOGLE_API_KEY"):
-    os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter API key for Google Gemini: ")
+
 embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
 
@@ -37,7 +40,7 @@ if is_test:
 similarity_result = vector_store.similarity_search(user_prompt)
 if is_test:
         print(f"similarity search sucess, ... Computing prompt")
-system_prompt_rag = f"<system prompt>:Tu est un juriste et tu réponds à des questions juridique. Tu but est de répondre au <user prompt>, et tu peux utiliser les données <rag data> issues d'une recherche de similarité dans une bases de données vecteurisé du code pénal."+\
+system_prompt_rag = f"<system prompt>:Tu est un juriste et tu réponds à des questions juridique. Ton but est de répondre au <user prompt>, et tu peux utiliser les données <rag data> issues d'une recherche de similarité dans une bases de données vecteurisé du code pénal."+\
                     f"<rag data>:{str(similarity_result)}\n"+\
                     f"<user prompt>:{user_prompt}"
 print(f"promt:{system_prompt_rag}")
