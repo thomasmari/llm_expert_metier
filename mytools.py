@@ -4,6 +4,8 @@ import getpass
 import json
 from dotenv import load_dotenv
 from langsmith import Client
+from pathlib import Path
+
 
 def setup_env_variables(auto:bool=False, verbose:bool=False):
     """Set up environment variable if not already set !"""
@@ -51,6 +53,43 @@ def test_langsmithAPI():
         print(f"Projets disponibles: {[p.name for p in projects]}")
     except Exception as e:
         print(f"Erreur de connexion: {e}")
+
+def create_file_if_not_exists(file_path:str) -> bool:
+    """
+    Vérifie si un fichier existe, le crée si nécessaire avec son arborescence.
+    Renvoie vrai si le fichier existait déjà et faux si on vient de le créer
+    """
+    try:
+        # Création d'un objet Path
+        path = Path(file_path)
+
+        # Validation basique du chemin
+        if not file_path or file_path.isspace():
+            raise ValueError("Le chemin du fichier ne peut pas être vide")
+        
+        # Vérification si le fichier existe déjà
+        if path.exists():
+            if path.is_file():
+                return True
+            else:
+                raise ValueError(f"'{file_path}' existe mais n'est pas un fichier")
+        
+        # Création de l'arborescence si elle n'existe pas
+        parent_dir = path.parent
+        if not parent_dir.exists():
+            parent_dir.mkdir(parents=True, exist_ok=True)
+
+        # Création du fichier vide
+        path.touch()
+        
+        return False
+        
+    except PermissionError as e:
+        raise OSError(f"Permission refusée pour '{file_path}': {e}")
+    except OSError as e:
+        raise OSError(f"Erreur système lors de la création de '{file_path}': {e}")
+    except Exception as e:
+        raise ValueError(f"Erreur lors du traitement de '{file_path}': {e}")
 
 if __name__ == "__main__":
 

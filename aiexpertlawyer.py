@@ -3,8 +3,9 @@
 # Auteur : Xavier BEDNAREK
 # Date : 10/09/2025
 
-from mytools import setup_env_variables
+from mytools import setup_env_variables, create_file_if_not_exists
 from langchain_chroma import Chroma
+import datetime
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_core.documents import Document
@@ -17,7 +18,7 @@ class AIExpertLawyer() :
     #                                                               Constructeur
     # --------------------------------------------------------------------------
 
-    def __init__(self, *, system_prompt: str| None = None, chroma_collection_name: str = "code_penal", chroma_db_path : str = "./chroma_langchain_db", llm_model : str = "gemini-2.5-flash-lite", temperature : float = 0.3, top_p: float = 0.8, nb_chunk : int = 4) -> None:
+    def __init__(self, *, system_prompt: str| None = None, chroma_collection_name: str = "code_penal", chroma_db_path : str = "./chroma_langchain_db", llm_model : str = "gemini-2.5-flash-lite", temperature : float = 0.3, top_p: float = 0.8, nb_chunk : int = 4, logfile : str|None = "logs/log_AIExpertLawyer.txt") -> None:
         """Constructeur de l'Agent IA"""
 
         # Setup des variables d'environnement
@@ -50,6 +51,12 @@ class AIExpertLawyer() :
         # 4 - Paramétrage de la façon dont sont faites les requêtes dans la base de donnée sémantique
         self._nb_chunks = nb_chunk
 
+        # 5 - Gestion des logs
+        self._logfile = logfile
+        if self._logfile  is not None :
+            create_file_if_not_exists(self._logfile)
+        self.log("="*80 + "\n ! ! CREATING NEW AIExpertLawyer ! ! ")
+
     # --------------------------------------------------------------------------
     #                                                                   Méthodes
     # --------------------------------------------------------------------------
@@ -64,6 +71,15 @@ class AIExpertLawyer() :
         "=========================================="   
         )
     
+    def log(self, text:str):
+        """Log quelque chose dans le log file (pour le suivit des requêtes par ex)"""
+        if self._logfile is not None :
+            with open(self._logfile, 'a', encoding='utf-8') as f:
+                f.write(("-"*80)+"\n> Log (" + datetime.datetime.now().strftime("%A, %d. %B %Y %H:%M:%S") + ") :\n" +text+"\n")
+    
+    def get_system_prompt(self) -> str :
+        return self._system_prompt
+    
     def ask(self, question:str) -> str:
         """Demande quelque chose à notre agent"""
 
@@ -72,9 +88,12 @@ class AIExpertLawyer() :
 
         # 2 - Création du prompt à envoyer au LLM
         prompt = self._system_prompt.format(rag_data=similarity_results, user_prompt=question)
+        self.log("On interroge le LLM de l'expert avec le prompt :\n"+prompt)
 
         # 3 - Appelle du LLM
-        return self._llm.invoke(prompt)
+        reponse = self._llm.invoke(prompt)
+        self.log("La réponse du LLM est :\n"+reponse)
+        return reponse
 
     def request_in_semantic_db(self, query:str) -> list[Document] :
         """Fait une requête dans la base de donnée sémantique"""
@@ -86,7 +105,7 @@ if __name__=='__main__':
     # Test
 
     # Création de l'agent
-    expert = AIExpertLawyer(temperature=0.25, nb_chunk=3, top_p=0.5)
+    expert = AIExpertLawyer(temperature=0.25, nb_chunk=3, top_p=0.5, logfile=None)
     print("🔎  Info sur l'Agent utilisé :")
     print(expert)
 

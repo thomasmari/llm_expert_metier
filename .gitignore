@@ -18,3 +18,6 @@ __pycache__
 
 # On ne veut pas versionner nos variables d'env perso (où il y a nos clé API !)
 .env
+
+# On ne vaut pas garder les logs écrits par les Agents
+logs
