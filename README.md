@@ -38,6 +38,12 @@ uv run src/fill_rag.py
 # API) avec :
 uv run src/explore_db.py
 
+# On peut construire l'image présente dans le DockerFile ainsi :
+sudo docker build -t "app:latest: . # /!\ bien mettre le .
+
+# Et le lancer ainsi :
+sudo docker run -it -p 8000:8000 app:latest
+
 # ---------------------------------------------------------------------------- #
 # Structure du projet :
 

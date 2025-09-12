@@ -20,6 +20,11 @@ def setup_env_variables(auto:bool=False, verbose:bool=False):
     elif verbose:
         print("Environment variable LANGSMITH_TRACING : ✔️")
 
+    flag = False
+    if (not os.environ.get("LANGSMITH_API_KEY")) and (not os.environ.get("GOOGLE_API_KEY")):
+        print("🔑  On a besoin de vos clé API ! 🔑 ")
+        flag = True
+
     if not os.environ.get("LANGSMITH_API_KEY"):
         os.environ["LANGSMITH_API_KEY"] = getpass.getpass("Enter API key for Langsmith: ")
     elif verbose:
@@ -29,6 +34,9 @@ def setup_env_variables(auto:bool=False, verbose:bool=False):
         os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter API key for Google Gemini: ")
     elif verbose:
         print("Environment variable GOOGLE_API_KEY : ✔️")
+
+    if flag :
+        print("🔑  Merci ! 🔑 ")
 
 def load_QA(fichier_json:str) -> list[dict]:
     """Lit un fichier JSON contenant des questions-réponses et retourne une liste de dictionnaire"""
