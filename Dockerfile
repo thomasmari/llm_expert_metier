@@ -1,15 +1,20 @@
 # syntax=docker/dockerfile:1
-# FROM python:3.8-slim-buster
-FROM python:3.14.0rc1-alpine3.22
+FROM astral/uv:python3.12-bookworm-slim
 LABEL maintainer="Thomas"
 
 WORKDIR /python-docker
 
-COPY ./src/*.py /python-docker/src
-COPY ./pyproject.toml /python-docker/pyproject.toml
+COPY ./src/main.py src/main.py
+COPY ./src/interface.py src/interface.py
+COPY ./src/aiexpertlawyer.py src/aiexpertlawyer.py
+COPY ./src/mytools.py src/mytools.py
+COPY ./pyproject.toml ./pyproject.toml
+COPY ./interface/index.html interface/index.html
 RUN uv sync
 
-EXPOSE 80
+COPY ./chroma_langchain_db /chroma_langchain_db
+
+EXPOSE 8000
 
 CMD [ "uv", "run", "./src/interface.py"]
 
