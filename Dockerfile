@@ -12,7 +12,7 @@ COPY ./pyproject.toml ./pyproject.toml
 COPY ./interface/index.html interface/index.html
 RUN uv sync
 
-COPY ./chroma_langchain_db /chroma_langchain_db
+COPY ./chroma_langchain_db ./chroma_langchain_db
 
 EXPOSE 8000
 
